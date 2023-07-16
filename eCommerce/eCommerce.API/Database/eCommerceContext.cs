@@ -12,7 +12,6 @@ namespace eCommerce.API.Database
         #endregion
 
         #region Conexão com distinção de ambientes de execução
-
         public eCommerceContext(DbContextOptions<eCommerceContext> options) : base(options)
         {
             
