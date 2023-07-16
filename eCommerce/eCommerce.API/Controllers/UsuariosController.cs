@@ -40,7 +40,6 @@ namespace eCommerce.API.Controllers
         [HttpPost]
         public IActionResult Add([FromBody]Usuario usuario)
         {
-            usuario.Id = 0;
             _repository.Add(usuario);
 
             return Ok(usuario);
