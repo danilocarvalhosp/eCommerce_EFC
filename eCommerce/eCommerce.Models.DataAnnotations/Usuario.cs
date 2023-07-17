@@ -23,6 +23,9 @@ namespace eCommerce.Models
         public int Id { get; set; }
         public string Nome { get; set; } = null!;
         public string Email { get; set; } = null!;
+
+        [Required]
+        [MaxLength(15)]
         public string? Sexo { get; set; }
 
         [Column("RegistroGeral")]
@@ -32,7 +35,7 @@ namespace eCommerce.Models
         public string? NomePai { get; set; }
         public string SituacaoCadastro { get; set; } = null!;
 
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        // [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Matricula { get; set; }
 
         /* RegistroAtivo = (SituaçaoCadastro == "Ativo") ? true : false;
