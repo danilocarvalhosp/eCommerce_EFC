@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eCommerce.Models.FluentAPI.Config;
 
 namespace eCommerce.Models.FluentAPI
 {
@@ -21,6 +22,7 @@ namespace eCommerce.Models.FluentAPI
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Explicações sobre FluentAPI
             modelBuilder.Entity<Usuario>().ToTable("TB_Usuarios");
             modelBuilder.Entity<Usuario>().Property(a => a.RG).HasColumnName("RegistroGeral").HasMaxLength(12).HasDefaultValue("RG-Ausente").IsRequired();
             modelBuilder.Entity<Usuario>().Ignore(a => a.Sexo);
@@ -48,6 +50,10 @@ namespace eCommerce.Models.FluentAPI
 
             modelBuilder.Entity<Usuario>().Property(a => a.RG).IsRequired().HasMaxLength(12);
             modelBuilder.Entity<Usuario>().Property(a => a.Preco).HasPrecision(2);
+            #endregion
+
+
+            modelBuilder.ApplyConfiguration(new UsuarioConfiguration());
         }
     }
 }
