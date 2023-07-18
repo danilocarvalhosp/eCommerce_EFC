@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,7 @@ namespace eCommerce.Models
         public string? NomePai { get; set; }
         public string SituacaoCadastro { get; set; } = null!;
         public DateTimeOffset DataCadastro { get; set; }
+
         public Contato? Contato { get; set; }
         public ICollection<EnderecoEntrega>? EnderecosEntrega { get; set; }
         public ICollection<Departamento>? Departamentos { get; set; }
