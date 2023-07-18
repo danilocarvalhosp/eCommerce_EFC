@@ -13,7 +13,7 @@ namespace eCommerce.Models
         public string Nome { get; set; } = null!;
         public string Email { get; set; } = null!;
         public string? Sexo { get; set; }
-        public string RG { get; set; } 
+        public string? RG { get; set; } 
         public string CPF { get; set; } = null!;
         public string? NomeMae { get; set; }
         public string? NomePai { get; set; }
