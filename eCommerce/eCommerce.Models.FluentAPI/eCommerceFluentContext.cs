@@ -23,6 +23,8 @@ namespace eCommerce.Models.FluentAPI
         {
             modelBuilder.Entity<Usuario>().ToTable("TB_Usuarios");
             modelBuilder.Entity<Usuario>().Property(a => a.RG).HasColumnName("RegistroGeral").HasMaxLength(12).HasDefaultValue("RG-Ausente").IsRequired();
+            modelBuilder.Entity<Usuario>().Ignore(a => a.Sexo);
+            modelBuilder.Entity<Usuario>().Property(a => a.Id).ValueGeneratedOnAdd();
         }
     }
 }
