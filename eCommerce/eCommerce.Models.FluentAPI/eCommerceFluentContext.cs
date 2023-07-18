@@ -31,6 +31,16 @@ namespace eCommerce.Models.FluentAPI
 
             modelBuilder.Entity<Usuario>().HasIndex("CPF", "Email");
             modelBuilder.Entity<Usuario>().HasIndex(a => new {a.CPF, a.Email});
+
+            modelBuilder.Entity<Usuario>().HasKey("Id");
+            modelBuilder.Entity<Usuario>().HasKey(a => a.Id);
+
+            modelBuilder.Entity<Usuario>().HasKey("Id", "CPF");
+            modelBuilder.Entity<Usuario>().HasKey(a => new { a.Id, a.CPF });
+
+            modelBuilder.Entity<Usuario>().HasAlternateKey(a => a.CPF);
+
+            modelBuilder.Entity<Usuario>().HasNoKey();
         }
     }
 }
