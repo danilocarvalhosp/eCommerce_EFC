@@ -12,7 +12,7 @@ namespace eCommerce.Office.Models
         public string Nome { get; set; } = null!;
 
         public ICollection<Veiculo>? Veiculos { get; set;}
-        public ICollection<Setor>? Setores { get; set; }
+        public ICollection<ColaboradorSetor>? ColaboradoresSetores { get; set; }
         public ICollection<Turma>? Turmas { get; set; }
     }
 }
