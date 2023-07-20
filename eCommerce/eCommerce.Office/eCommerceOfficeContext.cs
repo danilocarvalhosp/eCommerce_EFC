@@ -10,10 +10,10 @@ namespace eCommerce.Office
 {
     public class eCommerceOfficeContext : DbContext
     {
-        public DbSet<Colaborador>? Colaboradores{ get; set; }
-        public DbSet<Setor>? Setores { get; set; }
-        public DbSet<Turma>? Turmas { get; set; }
-        public DbSet<Veiculo>? Veiculos { get; set; }
+        public DbSet<Colaborador> Colaboradores { get; set; } = null!;
+        public DbSet<Setor> Setores { get; set; } = null!;
+        public DbSet<Turma> Turmas { get; set; } = null!;
+        public DbSet<Veiculo> Veiculos { get; set; } = null!;
 
         public DbSet<ColaboradorSetor>? ColaboradoresSetores { get; set; }
 
@@ -24,7 +24,7 @@ namespace eCommerce.Office
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            #region ColaboradorSetores
+            #region Mapping: ColaboradorSetores (EF Core 3.1)
             modelBuilder.Entity<ColaboradorSetor>().HasKey(a => new { a.SetorId, a.ColaboradorId });
 
             modelBuilder
@@ -77,6 +77,22 @@ namespace eCommerce.Office
                     new ColaboradorSetor() { SetorId = 4, ColaboradorId = 3, DataCriacao = DateTimeOffset.Now },
                     new ColaboradorSetor() { SetorId = 4, ColaboradorId = 7, DataCriacao = DateTimeOffset.Now }
                 );
+            #endregion
+
+            #region Mapping: Colaborador <=> Turma (EF Core 5+)
+
+            modelBuilder.Entity<Colaborador>().HasMany(a => a.Turmas).WithMany(a => a.Colaboradores);
+
+            modelBuilder
+                .Entity<Turma>()
+                .HasData(
+                    new Turma() { Id = 1, Nome = "Turma A1" },
+                    new Turma() { Id = 2, Nome = "Turma A2" },
+                    new Turma() { Id = 3, Nome = "Turma A3" },
+                    new Turma() { Id = 4, Nome = "Turma A4" },
+                    new Turma() { Id = 5, Nome = "Turma A5" }
+                );
+
             #endregion
         }
     }

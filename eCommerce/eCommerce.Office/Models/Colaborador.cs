@@ -13,6 +13,6 @@ namespace eCommerce.Office.Models
 
         public ICollection<Veiculo>? Veiculos { get; set;}
         public ICollection<ColaboradorSetor>? ColaboradoresSetores { get; set; }
-        public ICollection<Turma>? Turmas { get; set; }
+        public ICollection<Turma> Turmas { get; set; } = null!;
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using eCommerce.Office;
 
@@ -11,9 +12,11 @@ using eCommerce.Office;
 namespace eCommerce.Office.Migrations
 {
     [DbContext(typeof(eCommerceOfficeContext))]
-    partial class eCommerceOfficeContextModelSnapshot : ModelSnapshot
+    [Migration("20230720225821_TurmaSeeds")]
+    partial class TurmaSeeds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -133,49 +136,49 @@ namespace eCommerce.Office.Migrations
                         {
                             SetorId = 1,
                             ColaboradorId = 1,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 20, 27, 17, 766, DateTimeKind.Unspecified).AddTicks(5647), new TimeSpan(0, -3, 0, 0, 0))
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 19, 58, 21, 364, DateTimeKind.Unspecified).AddTicks(9060), new TimeSpan(0, -3, 0, 0, 0))
                         },
                         new
                         {
                             SetorId = 1,
                             ColaboradorId = 6,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 20, 27, 17, 766, DateTimeKind.Unspecified).AddTicks(5673), new TimeSpan(0, -3, 0, 0, 0))
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 19, 58, 21, 364, DateTimeKind.Unspecified).AddTicks(9082), new TimeSpan(0, -3, 0, 0, 0))
                         },
                         new
                         {
                             SetorId = 2,
                             ColaboradorId = 5,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 20, 27, 17, 766, DateTimeKind.Unspecified).AddTicks(5674), new TimeSpan(0, -3, 0, 0, 0))
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 19, 58, 21, 364, DateTimeKind.Unspecified).AddTicks(9084), new TimeSpan(0, -3, 0, 0, 0))
                         },
                         new
                         {
                             SetorId = 2,
                             ColaboradorId = 4,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 20, 27, 17, 766, DateTimeKind.Unspecified).AddTicks(5676), new TimeSpan(0, -3, 0, 0, 0))
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 19, 58, 21, 364, DateTimeKind.Unspecified).AddTicks(9085), new TimeSpan(0, -3, 0, 0, 0))
                         },
                         new
                         {
                             SetorId = 3,
                             ColaboradorId = 2,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 20, 27, 17, 766, DateTimeKind.Unspecified).AddTicks(5677), new TimeSpan(0, -3, 0, 0, 0))
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 19, 58, 21, 364, DateTimeKind.Unspecified).AddTicks(9087), new TimeSpan(0, -3, 0, 0, 0))
                         },
                         new
                         {
                             SetorId = 3,
                             ColaboradorId = 8,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 20, 27, 17, 766, DateTimeKind.Unspecified).AddTicks(5679), new TimeSpan(0, -3, 0, 0, 0))
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 19, 58, 21, 364, DateTimeKind.Unspecified).AddTicks(9089), new TimeSpan(0, -3, 0, 0, 0))
                         },
                         new
                         {
                             SetorId = 4,
                             ColaboradorId = 3,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 20, 27, 17, 766, DateTimeKind.Unspecified).AddTicks(5680), new TimeSpan(0, -3, 0, 0, 0))
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 19, 58, 21, 364, DateTimeKind.Unspecified).AddTicks(9090), new TimeSpan(0, -3, 0, 0, 0))
                         },
                         new
                         {
                             SetorId = 4,
                             ColaboradorId = 7,
-                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 20, 27, 17, 766, DateTimeKind.Unspecified).AddTicks(5682), new TimeSpan(0, -3, 0, 0, 0))
+                            DataCriacao = new DateTimeOffset(new DateTime(2023, 7, 20, 19, 58, 21, 364, DateTimeKind.Unspecified).AddTicks(9092), new TimeSpan(0, -3, 0, 0, 0))
                         });
                 });
 
