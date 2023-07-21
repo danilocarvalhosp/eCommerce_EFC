@@ -12,8 +12,8 @@ using eCommerce.API.Database;
 namespace eCommerce.API.Migrations
 {
     [DbContext(typeof(eCommerceContext))]
-    [Migration("20230716214649_Mudanca01")]
-    partial class Mudanca01
+    [Migration("20230721222234_BancoInicial")]
+    partial class BancoInicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,6 +80,43 @@ namespace eCommerce.API.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Departamentos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Nome = "Moda"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Nome = "Informática"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Nome = "Eletrodomésticos"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Nome = "Eletroportáteis"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Nome = "Beleza"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Nome = "Mercado"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Nome = "Móveis"
+                        });
                 });
 
             modelBuilder.Entity("eCommerce.Models.EnderecoEntrega", b =>
@@ -156,8 +193,13 @@ namespace eCommerce.API.Migrations
                     b.Property<string>("NomeMae")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("NomePai")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Preco")
+                        .HasColumnType("float");
+
                     b.Property<string>("RG")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Sexo")

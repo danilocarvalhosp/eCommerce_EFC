@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace eCommerce.API.Migrations
 {
     /// <inheritdoc />
@@ -33,11 +35,13 @@ namespace eCommerce.API.Migrations
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Sexo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RG = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RG = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CPF = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NomeMae = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    NomePai = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SituacaoCadastro = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataCadastro = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    DataCadastro = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    Preco = table.Column<double>(type: "float", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -114,6 +118,20 @@ namespace eCommerce.API.Migrations
                         principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Departamentos",
+                columns: new[] { "Id", "Nome" },
+                values: new object[,]
+                {
+                    { 1, "Moda" },
+                    { 2, "Informática" },
+                    { 3, "Eletrodomésticos" },
+                    { 4, "Eletroportáteis" },
+                    { 5, "Beleza" },
+                    { 6, "Mercado" },
+                    { 7, "Móveis" }
                 });
 
             migrationBuilder.CreateIndex(
