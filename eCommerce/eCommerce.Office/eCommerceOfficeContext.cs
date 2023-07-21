@@ -18,6 +18,8 @@ namespace eCommerce.Office
 
         public DbSet<ColaboradorSetor>? ColaboradoresSetores { get; set; }
 
+        // public DbSet<ColaboradorVeiculo>? ColaboradoresVeiculos { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=eCommerceOffice;Integrated Security=True;");
@@ -60,7 +62,7 @@ namespace eCommerce.Office
 
             #endregion
 
-            #region Mapping: Colaborador <=> Veiculo (EF Core 5+)
+            #region Mapping: Colaborador <=> Veiculo + Payload (EF Core 5+)
 
             modelBuilder
                 .Entity<Colaborador>()

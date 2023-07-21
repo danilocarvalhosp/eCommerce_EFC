@@ -1,9 +1,10 @@
 ﻿using eCommerce.Office;
+using eCommerce.Office.Models;
 using Microsoft.EntityFrameworkCore;
 
 var db = new eCommerceOfficeContext();
 
-#region Many-To-Many > 2x One-To-Many = EFCore <= 3.1
+#region Many-To-Many for EF Core <= 3.1
 var resultado = db.Setores!.Include(a => a.ColaboradoresSetores).ThenInclude(a => a.Colaborador);
 
 foreach (var setor in resultado)
@@ -16,7 +17,7 @@ foreach (var setor in resultado)
 }
 #endregion
 
-#region Many-To-Many  EFCore >= 5.0
+#region Many-To-Many for EFCore 5.0+
 
 Console.WriteLine("--------------------------------------");
 
@@ -30,5 +31,24 @@ foreach (var colab in resultadoTurma)
         Console.WriteLine(" - " + turma.Nome);
     }
 }
+
+#endregion
+
+#region Many-To-Many + Payload for EF Core 5.0+
+
+Console.WriteLine("-------------------------------------");
+var colabVeiculo = db.Colaboradores!.Include(a => a.ColaboradoresVeiculos)!.ThenInclude(a => a.Veiculo);
+
+foreach (var colab in colabVeiculo)
+{
+    Console.WriteLine(colab.Nome);
+    foreach (var vinculo in colab.ColaboradoresVeiculos!)
+    {
+        Console.WriteLine($"- {vinculo.Veiculo.Nome} ({vinculo.Veiculo.Placa}) : {vinculo.DataInicioVinculo}");
+    }
+}
+
+var vinculo01 = db.Set<ColaboradorVeiculo>().SingleOrDefault(a => a.ColaboradorId == 1 && a.VeiculoId == 1);
+Console.WriteLine(vinculo01!.DataInicioVinculo);
 
 #endregion
