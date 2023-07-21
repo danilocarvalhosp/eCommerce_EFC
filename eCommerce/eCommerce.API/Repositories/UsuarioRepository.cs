@@ -27,6 +27,24 @@ namespace eCommerce.API.Repositories
 
         public void Add(Usuario usuario)
         {
+            if (usuario.Departamentos != null)
+            {
+                var departamentos = usuario.Departamentos;
+
+                usuario.Departamentos = new List<Departamento>();
+                foreach (var departamento in departamentos)
+                {
+                    if (departamento.Id > 0)
+                    {
+                        usuario.Departamentos.Add(_db.Departamentos.Find(departamento.Id)!);
+                    }
+                    else
+                    {
+                        usuario.Departamentos.Add(departamento);
+                    }
+                }
+            }
+
             _db.Usuarios.Add(usuario);
             _db.SaveChanges();
         }
