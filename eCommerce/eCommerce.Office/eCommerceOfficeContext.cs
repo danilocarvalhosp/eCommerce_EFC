@@ -1,5 +1,6 @@
 ﻿using eCommerce.Office.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,41 @@ namespace eCommerce.Office
             //modelBuilder.Entity<Setor>().HasMany<ColaboradorSetor>().WithOne(c => c.Setor).HasForeignKey(a => a.SetorId);
             #endregion
 
+            #region Mapping: Colaborador <=> Turma (EF Core 5+)
+
+            modelBuilder.Entity<Colaborador>().HasMany(a => a.Turmas).WithMany(a => a.Colaboradores);
+
+            modelBuilder
+                .Entity<Turma>()
+                .HasData(
+                    new Turma() { Id = 1, Nome = "Turma A1" },
+                    new Turma() { Id = 2, Nome = "Turma A2" },
+                    new Turma() { Id = 3, Nome = "Turma A3" },
+                    new Turma() { Id = 4, Nome = "Turma A4" },
+                    new Turma() { Id = 5, Nome = "Turma A5" }
+                );
+
+            #endregion
+
+            #region Mapping: Colaborador <=> Veiculo (EF Core 5+)
+
+            modelBuilder
+                .Entity<Colaborador>()
+                .HasMany(a => a.Veiculos)
+                .WithMany(a => a.Colaboradores)
+                .UsingEntity<ColaboradorVeiculo>(
+                    q => q.HasOne(a => a.Veiculo)
+                        .WithMany(a => a.ColaboradoresVeiculos)
+                        .HasForeignKey(a => a.VeiculoId),
+                    q => q.HasOne(a => a.Colaborador)
+                        .WithMany(a => a.ColaboradoresVeiculos)
+                        .HasForeignKey(a => a.ColaboradorId),
+                    q => q.HasKey(a => new {a.ColaboradorId, a.VeiculoId})
+                );
+            ;
+            
+            #endregion
+
             #region Seeds
             modelBuilder
                 .Entity<Colaborador>()
@@ -77,23 +113,16 @@ namespace eCommerce.Office
                     new ColaboradorSetor() { SetorId = 4, ColaboradorId = 3, DataCriacao = DateTimeOffset.Now },
                     new ColaboradorSetor() { SetorId = 4, ColaboradorId = 7, DataCriacao = DateTimeOffset.Now }
                 );
-            #endregion
 
-            #region Mapping: Colaborador <=> Turma (EF Core 5+)
-
-            modelBuilder.Entity<Colaborador>().HasMany(a => a.Turmas).WithMany(a => a.Colaboradores);
-
-            modelBuilder
-                .Entity<Turma>()
-                .HasData(
-                    new Turma() { Id = 1, Nome = "Turma A1" },
-                    new Turma() { Id = 2, Nome = "Turma A2" },
-                    new Turma() { Id = 3, Nome = "Turma A3" },
-                    new Turma() { Id = 4, Nome = "Turma A4" },
-                    new Turma() { Id = 5, Nome = "Turma A5" }
+            modelBuilder.Entity<Veiculo>().HasData(
+                new Veiculo() { Id = 1, Nome = "Fiat Argo", Placa = "ABC-1234" },
+                new Veiculo() { Id = 2, Nome = "Fiat Mobi", Placa = "DEF-1234" },
+                new Veiculo() { Id = 3, Nome = "Fiat Siena", Placa = "GHI-1234" },
+                new Veiculo() { Id = 4, Nome = "Fiat Palio", Placa = "JKL-1234" },
+                new Veiculo() { Id = 5, Nome = "Fiat Idea", Placa = "MNO-1234" }
                 );
-
             #endregion
+
         }
     }
 }
