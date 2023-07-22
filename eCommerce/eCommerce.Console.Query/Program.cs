@@ -183,7 +183,6 @@ db.ChangeTracker.Clear();
 Console.WriteLine("========== QUERY DIVIDIDA ==========");
 var usuarioSplitQuery = db.Usuarios!.AsSingleQuery().Include(a => a.EnderecosEntrega).FirstOrDefault(a => a.Id == 1);
 Console.WriteLine($"- NOME: {usuarioSplitQuery!.Nome} - END: {usuarioSplitQuery.EnderecosEntrega?.Count}");
-*/
 
 // TAKE - Pegar uma quantidade definida de registros
 // SKIP - Pular uma quantidade definida de registros
@@ -193,4 +192,13 @@ var usuariosSkipTake = db.Usuarios!.Skip(1).Take(2).ToList();
 foreach (var usuario in usuariosSkipTake)
 {
     Console.WriteLine($"{usuario.Nome}");
+}
+*/
+// SELECT
+
+Console.WriteLine("========== SELECT ==========");
+var usuarioSelect = db.Usuarios!.Where(a => a.Id > 2).Select(a => new { Id = a.Id, Nome = a.Nome, NomeMae = a.NomeMae}).ToList();
+foreach (var usuario in usuarioSelect)
+{
+    Console.WriteLine($"- COD: {usuario.Id} - NOME: {usuario.Nome} - MÃE: {usuario.NomeMae}");
 }
