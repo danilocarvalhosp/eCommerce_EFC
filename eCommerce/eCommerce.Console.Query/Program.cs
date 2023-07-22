@@ -143,9 +143,7 @@ foreach (var contato in contatos)
 {
     Console.WriteLine($"- {contato.Telefone} -> {contato.Usuario!.Nome} - QT END: {contato.Usuario.EnderecosEntrega!.Count} - QT DPTO: {contato.Usuario.Departamentos!.Count}");
 }
-*/
 
-db.ChangeTracker.Clear();
 Console.WriteLine("========== LISTA DE CONTATOS (AUTOINCLUDE) ==========");
 
 // AUTOINCLUDE
@@ -155,4 +153,21 @@ foreach (var usuario in usuariosAutoInclude)
 {
     Console.WriteLine($"NOME: {usuario.Nome} - TEL: {usuario.Contato?.Telefone}");
 }
+*/
+// EXPLICT LOAD - Carregamento Explicito
+db.ChangeTracker.Clear();
 
+Console.WriteLine("========== CARREGAMENTO EXPLÍCITO ==========");
+
+var usuarioExplicitLoad = db.Usuarios!.IgnoreAutoIncludes().FirstOrDefault(a => a.Id == 1) ;
+Console.WriteLine($"NOME: {usuarioExplicitLoad!.Nome} - TEL: {usuarioExplicitLoad!.Contato?.Telefone} - END: {usuarioExplicitLoad.EnderecosEntrega?.Count}");
+
+db.Entry(usuarioExplicitLoad).Reference(a => a.Contato).Load();
+db.Entry(usuarioExplicitLoad).Collection(a => a.EnderecosEntrega!).Load();
+Console.WriteLine($"NOME: {usuarioExplicitLoad!.Nome} - TEL: {usuarioExplicitLoad!.Contato!.Telefone} - END: {usuarioExplicitLoad.EnderecosEntrega?.Count}");
+
+var enderecos = db.Entry(usuarioExplicitLoad).Collection(a => a.EnderecosEntrega!).Query().Where(a => a.Estado == "SP").ToList();
+foreach (var endereco in enderecos)
+{
+    Console.WriteLine($" -- {endereco.NomeEndereco}: {endereco.Estado} {endereco.Cidade} - {endereco.Endereco}, {endereco.Complemento}");
+}
