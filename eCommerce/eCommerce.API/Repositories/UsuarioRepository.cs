@@ -27,6 +27,30 @@ namespace eCommerce.API.Repositories
 
         public void Add(Usuario usuario)
         {
+            CriarVinculoUsuarioDepartamento(usuario);
+
+            _db.Usuarios.Add(usuario);
+            _db.SaveChanges();
+        }
+
+        public void Update(Usuario usuario)
+        {
+            ExcluirVinculoUsuarioDepartamento(usuario);
+
+            CriarVinculoUsuarioDepartamento(usuario);
+
+            _db.Usuarios.Update(usuario);
+            _db.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            _db.Usuarios.Remove(Get(id));
+            _db.SaveChanges();
+        }
+
+        private void CriarVinculoUsuarioDepartamento(Usuario usuario)
+        {
             if (usuario.Departamentos != null)
             {
                 var departamentos = usuario.Departamentos;
@@ -44,21 +68,19 @@ namespace eCommerce.API.Repositories
                     }
                 }
             }
-
-            _db.Usuarios.Add(usuario);
-            _db.SaveChanges();
         }
 
-        public void Update(Usuario usuario)
+        private void ExcluirVinculoUsuarioDepartamento(Usuario usuario)
         {
-            _db.Usuarios.Update(usuario);
-            _db.SaveChanges();
-        }
+            var usuarioBanco = _db.Usuarios.Include(a => a.Departamentos).FirstOrDefault(a => a.Id == usuario.Id);
 
-        public void Delete(int id)
-        {
-            _db.Usuarios.Remove(Get(id));
+            foreach (var departamento in usuarioBanco!.Departamentos!)
+            {
+                usuarioBanco.Departamentos.Remove(departamento);
+            }
+
             _db.SaveChanges();
+            _db.ChangeTracker.Clear();
         }
     }
 }
