@@ -170,10 +170,17 @@ foreach (var endereco in enderecos)
 {
     Console.WriteLine($" -- {endereco.NomeEndereco}: {endereco.Estado} {endereco.Cidade} - {endereco.Endereco}, {endereco.Complemento}");
 }
-*/
 // LAZY LOADING - Carregamento Preguiçoso
 Console.WriteLine("========== CARREGAMENTO PREGUIÇOSO ==========");
 db.ChangeTracker.Clear();
 
 var usuarioLazyLoad = db.Usuarios!.Find(1);
 Console.WriteLine($"- NOME: {usuarioLazyLoad!.Nome} - END: {usuarioLazyLoad.EnderecosEntrega?.Count}");
+*/
+
+// SPLIT QUERY - QUERY DIVIDIDA
+db.ChangeTracker.Clear();
+
+Console.WriteLine("========== QUERY DIVIDIDA ==========");
+var usuarioSplitQuery = db.Usuarios!.AsSingleQuery().Include(a => a.EnderecosEntrega).FirstOrDefault(a => a.Id == 1);
+Console.WriteLine($"- NOME: {usuarioSplitQuery!.Nome} - END: {usuarioSplitQuery.EnderecosEntrega?.Count}");
