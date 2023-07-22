@@ -9,7 +9,7 @@ namespace eCommerce.API.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=eCommerce;Integrated Security=True;");
+                .UseLazyLoadingProxies().UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=eCommerce;Integrated Security=True;");
                 //.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
                 //.EnableSensitiveDataLogging();
         }
@@ -30,7 +30,6 @@ namespace eCommerce.API.Database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Usuario>().Navigation(a => a.Contato).AutoInclude();
-            ; 
         }
     }
 }

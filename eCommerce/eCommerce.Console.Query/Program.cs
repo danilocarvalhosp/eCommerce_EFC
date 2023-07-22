@@ -153,7 +153,6 @@ foreach (var usuario in usuariosAutoInclude)
 {
     Console.WriteLine($"NOME: {usuario.Nome} - TEL: {usuario.Contato?.Telefone}");
 }
-*/
 // EXPLICT LOAD - Carregamento Explicito
 db.ChangeTracker.Clear();
 
@@ -171,3 +170,10 @@ foreach (var endereco in enderecos)
 {
     Console.WriteLine($" -- {endereco.NomeEndereco}: {endereco.Estado} {endereco.Cidade} - {endereco.Endereco}, {endereco.Complemento}");
 }
+*/
+// LAZY LOADING - Carregamento Preguiçoso
+Console.WriteLine("========== CARREGAMENTO PREGUIÇOSO ==========");
+db.ChangeTracker.Clear();
+
+var usuarioLazyLoad = db.Usuarios!.Find(1);
+Console.WriteLine($"- NOME: {usuarioLazyLoad!.Nome} - END: {usuarioLazyLoad.EnderecosEntrega?.Count}");
