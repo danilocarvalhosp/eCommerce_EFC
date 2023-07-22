@@ -118,7 +118,6 @@ foreach (var usuario in usuariosListOrder4)
 {
     Console.WriteLine($" - {usuario.Nome}");
 }
-*/
 
 Console.WriteLine("========== LISTA DE USUÁRIOS (INCLUDE) ==========");
 
@@ -134,4 +133,14 @@ foreach (var usuario in usuariosListInclude)
         Console.WriteLine($" -> {endereco.NomeEndereco}: {endereco.CEP} - {endereco.Estado} - {endereco.Bairro} -{endereco.Endereco}");
     }
     Console.WriteLine();
+*/
+
+Console.WriteLine("========== LISTA DE CONTATOS (THENINCLUDE) ==========");
+
+// INCLUDE
+var contatos = db.Contatos!.Include(a => a.Usuario).ThenInclude(u => u.EnderecosEntrega).Include(a => a.Usuario).ThenInclude(e => e.Departamentos).ToList();
+Console.WriteLine();
+foreach (var contato in contatos)
+{
+    Console.WriteLine($"- {contato.Telefone} -> {contato.Usuario!.Nome} - QT END: {contato.Usuario.EnderecosEntrega!.Count} - QT DPTO: {contato.Usuario.Departamentos!.Count}");
 }
