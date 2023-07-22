@@ -202,9 +202,7 @@ foreach (var usuario in usuarioSelect)
 {
     Console.WriteLine($"- COD: {usuario.Id} - NOME: {usuario.Nome} - MÃE: {usuario.NomeMae}");
 }
-*/
 
-db.ChangeTracker.Clear();
 Console.WriteLine("========== EXECUÇÃO DE SQL ==========");
 
 var nome = new SqlParameter("@nome", "%Sim%");
@@ -213,4 +211,10 @@ foreach (var usuario in usuariosSqlRaw)
 {
     Console.WriteLine($"- COD: {usuario.Id} - NOME: {usuario.Nome} - MÃE: {usuario.NomeMae}");
 }
+*/
+db.ChangeTracker.Clear();
+
+var mae = "Fabiana";
+db.Database.ExecuteSqlInterpolated($"UPDATE [Usuarios] SET [NomeMae] = {mae} WHERE [Id] = 4");
+
 
