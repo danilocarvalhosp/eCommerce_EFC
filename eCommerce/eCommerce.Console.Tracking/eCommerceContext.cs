@@ -16,10 +16,10 @@ namespace eCommerce.API.Database
         #endregion
 
         #region Conexão com distinção de ambientes de execução
-        public eCommerceContext(DbContextOptions<eCommerceContext> options) : base(options)
-        {
+        //public eCommerceContext(DbContextOptions<eCommerceContext> options) : base(options)
+        //{
             
-        }
+        //}
         #endregion
 
         public DbSet<Usuario> Usuarios { get; set; }
