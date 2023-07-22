@@ -4,19 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using eCommerce.Console.Query.Config;
+
 
 namespace eCommerce.Models
 {
     public class Usuario
     {
-        private readonly ILazyLoader LazyLoader;
+        private readonly Action<object, string> LazyLoader;
 
         public Usuario()
         {
             
         }
 
-        public Usuario(ILazyLoader lazyLoader)
+        public Usuario(Action<object, string> lazyLoader)
         {
             LazyLoader = lazyLoader;
         }
