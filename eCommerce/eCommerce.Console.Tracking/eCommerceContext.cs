@@ -11,7 +11,8 @@ namespace eCommerce.API.Database
             optionsBuilder
                 .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=eCommerce;Integrated Security=True;")
                 .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
-                .EnableSensitiveDataLogging();
+                .EnableSensitiveDataLogging()
+                .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
         #endregion
 
