@@ -9,20 +9,8 @@ namespace eCommerce.API.Database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                //.UseLazyLoadingProxies() - Habilita o Lazy Loading usando Proxies
-                .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=eCommerce;Integrated Security=True;"
-                //, options => options.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)
-                )
-                .LogTo(System.Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information)
-                .EnableSensitiveDataLogging();
+                .UseSqlServer("Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=eCommerce;Integrated Security=True;");
         }
-        #endregion
-
-        #region Conexão com distinção de ambientes de execução
-        //public eCommerceContext(DbContextOptions<eCommerceContext> options) : base(options)
-        //{
-            
-        //}
         #endregion
 
         public DbSet<Usuario>? Usuarios { get; set; }
@@ -32,7 +20,7 @@ namespace eCommerce.API.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Usuario>().Navigation(a => a.Contato).AutoInclude();
+            modelBuilder.Entity<Usuario>().HasQueryFilter(a => a.SituacaoCadastro == "A");
         }
     }
 }
