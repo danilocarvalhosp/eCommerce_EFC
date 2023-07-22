@@ -6,13 +6,13 @@ var db = new eCommerceContext();
 
 var usuarios = db.Usuarios!.ToList();
 
+/*
 Console.WriteLine("========== LISTA DE USUÁRIOS ==========");
 foreach (var usuario in usuarios)
 {
     Console.WriteLine($" - {usuario.Nome}");
 }
 
-/*
 Console.WriteLine("BUSCAR UM ÚNICO USUÁRIO");
 // FIND
 var usuario01 = db.Usuarios!.Find(2);
@@ -74,12 +74,48 @@ Console.WriteLine($"VALOR MÁXIMO: {max}");
 // MIN
 var min = db.Usuarios!.Min(a => a.Nome);
 Console.WriteLine($"VALOR MÍNIMO: {min}");
-*/
 
 // WHERE
 Console.WriteLine("========== LISTA DE USUÁRIOS (WHERE) ==========");
 var usuariosList = db.Usuarios!.Where(a => a.Nome.Contains("Danilo") || EF.Functions.Like(a.Nome, "D%")).ToList();
 foreach (var usuario in usuariosList)
+{
+    Console.WriteLine($" - {usuario.Nome}");
+}
+*/
+
+Console.WriteLine("========== LISTA DE USUÁRIOS (ORDER) ==========");
+// ORDERBY
+var usuariosListOrder = db.Usuarios!.OrderBy(a => a.Nome).ToList();
+Console.WriteLine();
+foreach (var usuario in usuariosListOrder)
+{
+    Console.WriteLine($" - {usuario.Nome}");
+}
+
+// ORDERBYDESCENDING
+var usuariosListOrder2 = db.Usuarios!.OrderByDescending(a => a.Nome).ToList();
+Console.WriteLine();
+foreach (var usuario in usuariosListOrder2)
+{
+    Console.WriteLine($" - {usuario.Nome}");
+}
+
+// THENBY
+var usuariosListOrder3 = db.Usuarios!.OrderBy(a => a.Sexo).ThenBy(a => a.Nome).ToList();
+Console.WriteLine();
+
+foreach (var usuario in usuariosListOrder3)
+{
+    Console.WriteLine($" - {usuario.Nome}");
+}
+
+
+// THENBYDESCENDING
+var usuariosListOrder4 = db.Usuarios!.OrderBy(a => a.Sexo).ThenByDescending(a => a.Nome).ToList();
+Console.WriteLine();
+
+foreach (var usuario in usuariosListOrder4)
 {
     Console.WriteLine($" - {usuario.Nome}");
 }
