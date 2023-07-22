@@ -1,5 +1,6 @@
 ﻿using eCommerce.API.Database;
 using eCommerce.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 
 var db = new eCommerceContext();
@@ -193,12 +194,23 @@ foreach (var usuario in usuariosSkipTake)
 {
     Console.WriteLine($"{usuario.Nome}");
 }
-*/
-// SELECT
 
+// SELECT
 Console.WriteLine("========== SELECT ==========");
 var usuarioSelect = db.Usuarios!.Where(a => a.Id > 2).Select(a => new { Id = a.Id, Nome = a.Nome, NomeMae = a.NomeMae}).ToList();
 foreach (var usuario in usuarioSelect)
 {
     Console.WriteLine($"- COD: {usuario.Id} - NOME: {usuario.Nome} - MÃE: {usuario.NomeMae}");
 }
+*/
+
+db.ChangeTracker.Clear();
+Console.WriteLine("========== EXECUÇÃO DE SQL ==========");
+
+var nome = new SqlParameter("@nome", "%Sim%");
+var usuariosSqlRaw = db.Usuarios!.FromSqlRaw($"SELECT * FROM [Usuarios] WHERE Nome like @nome", nome).IgnoreAutoIncludes().ToList();
+foreach (var usuario in usuariosSqlRaw)
+{
+    Console.WriteLine($"- COD: {usuario.Id} - NOME: {usuario.Nome} - MÃE: {usuario.NomeMae}");
+}
+
