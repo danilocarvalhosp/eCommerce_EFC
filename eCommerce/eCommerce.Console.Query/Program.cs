@@ -176,7 +176,6 @@ db.ChangeTracker.Clear();
 
 var usuarioLazyLoad = db.Usuarios!.Find(1);
 Console.WriteLine($"- NOME: {usuarioLazyLoad!.Nome} - END: {usuarioLazyLoad.EnderecosEntrega?.Count}");
-*/
 
 // SPLIT QUERY - QUERY DIVIDIDA
 db.ChangeTracker.Clear();
@@ -184,3 +183,14 @@ db.ChangeTracker.Clear();
 Console.WriteLine("========== QUERY DIVIDIDA ==========");
 var usuarioSplitQuery = db.Usuarios!.AsSingleQuery().Include(a => a.EnderecosEntrega).FirstOrDefault(a => a.Id == 1);
 Console.WriteLine($"- NOME: {usuarioSplitQuery!.Nome} - END: {usuarioSplitQuery.EnderecosEntrega?.Count}");
+*/
+
+// TAKE - Pegar uma quantidade definida de registros
+// SKIP - Pular uma quantidade definida de registros
+
+Console.WriteLine("========== TAKE E SKIP ==========");
+var usuariosSkipTake = db.Usuarios!.Skip(1).Take(2).ToList();
+foreach (var usuario in usuariosSkipTake)
+{
+    Console.WriteLine($"{usuario.Nome}");
+}
