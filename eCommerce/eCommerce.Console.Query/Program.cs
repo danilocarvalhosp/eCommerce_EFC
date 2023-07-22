@@ -82,7 +82,6 @@ foreach (var usuario in usuariosList)
 {
     Console.WriteLine($" - {usuario.Nome}");
 }
-*/
 
 Console.WriteLine("========== LISTA DE USUÁRIOS (ORDER) ==========");
 // ORDERBY
@@ -118,4 +117,21 @@ Console.WriteLine();
 foreach (var usuario in usuariosListOrder4)
 {
     Console.WriteLine($" - {usuario.Nome}");
+}
+*/
+
+Console.WriteLine("========== LISTA DE USUÁRIOS (INCLUDE) ==========");
+
+// INCLUDE
+var usuariosListInclude = db.Usuarios!.Include(a => a.Contato).Include(a => a.EnderecosEntrega).Include(a => a.Departamentos).ToList();
+Console.WriteLine();
+foreach (var usuario in usuariosListInclude)
+{
+    Console.WriteLine($" {usuario.Nome} - TEL: {usuario.Contato!.Telefone} - QT END: {usuario.EnderecosEntrega!.Count} - QT DPTO: {usuario.Departamentos!.Count}");
+
+    foreach (var endereco in usuario.EnderecosEntrega)
+    {
+        Console.WriteLine($" -> {endereco.NomeEndereco}: {endereco.CEP} - {endereco.Estado} - {endereco.Bairro} -{endereco.Endereco}");
+    }
+    Console.WriteLine();
 }
