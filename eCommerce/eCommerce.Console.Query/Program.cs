@@ -1,5 +1,6 @@
 ﻿using eCommerce.API.Database;
 using eCommerce.Models;
+using Microsoft.EntityFrameworkCore;
 
 var db = new eCommerceContext();
 
@@ -11,8 +12,8 @@ foreach (var usuario in usuarios)
     Console.WriteLine($" - {usuario.Nome}");
 }
 
-Console.WriteLine("BUSCAR UM ÚNICO USUÁRIO");
 /*
+Console.WriteLine("BUSCAR UM ÚNICO USUÁRIO");
 // FIND
 var usuario01 = db.Usuarios!.Find(2);
 Console.WriteLine($" CÓDIGO: {usuario01!.Id} - NOME: {usuario01!.Nome}");
@@ -46,7 +47,6 @@ else
 {
     Console.WriteLine($" CÓDIGO: {usuario04!.Id} - NOME: {usuario04!.Nome}");
 }
-*/
 
 // SINGLE
 var usuario01 = db.Usuarios!.Single(a => a.Email == "danilo@gmail.com");
@@ -74,3 +74,12 @@ Console.WriteLine($"VALOR MÁXIMO: {max}");
 // MIN
 var min = db.Usuarios!.Min(a => a.Nome);
 Console.WriteLine($"VALOR MÍNIMO: {min}");
+*/
+
+// WHERE
+Console.WriteLine("========== LISTA DE USUÁRIOS (WHERE) ==========");
+var usuariosList = db.Usuarios!.Where(a => a.Nome.Contains("Danilo") || EF.Functions.Like(a.Nome, "D%")).ToList();
+foreach (var usuario in usuariosList)
+{
+    Console.WriteLine($" - {usuario.Nome}");
+}
