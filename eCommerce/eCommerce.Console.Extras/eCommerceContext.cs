@@ -20,7 +20,8 @@ namespace eCommerce.API.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Usuario>().HasQueryFilter(a => a.SituacaoCadastro == "A");
+            modelBuilder.Entity<Usuario>().HasQueryFilter(a => a.SituacaoCadastro == SituacaoCadastro.Ativo);
+            modelBuilder.Entity<Usuario>().Property(a => a.SituacaoCadastro).HasConversion<string>();
         }
     }
 }
