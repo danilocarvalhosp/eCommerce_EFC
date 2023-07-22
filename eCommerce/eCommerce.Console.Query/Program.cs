@@ -133,14 +133,26 @@ foreach (var usuario in usuariosListInclude)
         Console.WriteLine($" -> {endereco.NomeEndereco}: {endereco.CEP} - {endereco.Estado} - {endereco.Bairro} -{endereco.Endereco}");
     }
     Console.WriteLine();
-*/
 
 Console.WriteLine("========== LISTA DE CONTATOS (THENINCLUDE) ==========");
 
-// INCLUDE
+// THENINCLUDE
 var contatos = db.Contatos!.Include(a => a.Usuario).ThenInclude(u => u.EnderecosEntrega).Include(a => a.Usuario).ThenInclude(e => e.Departamentos).ToList();
 Console.WriteLine();
 foreach (var contato in contatos)
 {
     Console.WriteLine($"- {contato.Telefone} -> {contato.Usuario!.Nome} - QT END: {contato.Usuario.EnderecosEntrega!.Count} - QT DPTO: {contato.Usuario.Departamentos!.Count}");
 }
+*/
+
+db.ChangeTracker.Clear();
+Console.WriteLine("========== LISTA DE CONTATOS (AUTOINCLUDE) ==========");
+
+// AUTOINCLUDE
+var usuariosAutoInclude = db.Usuarios!.IgnoreAutoIncludes().ToList();
+Console.WriteLine();
+foreach (var usuario in usuariosAutoInclude)
+{
+    Console.WriteLine($"NOME: {usuario.Nome} - TEL: {usuario.Contato?.Telefone}");
+}
+
